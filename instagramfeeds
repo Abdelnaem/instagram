@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Instagram Feeds" height="300" thumbnail="http://2.bp.blogspot.com/-lKz014ESBU8/VTb5dUZcnMI/AAAAAAAADgw/n_OTrNSvvKs/s1600/instagram.png" description="A gadget that displays your Instagram photos."/>
+  <UserPref name="myname" display_name="Name" default_value="Rowan"/>
+  <UserPref name="instagramid" display_name="Table" default_value="" datatype="string"/>
+  <UserPref name="mycolor" display_name="Color" default_value="Yellow" datatype="enum" >
+    <EnumValue value="Red" />
+     <EnumValue value="Aqua" />
+     <EnumValue value="Lime" />
+     <EnumValue value="Yellow" />
+     <EnumValue value="Pink" />
+     <EnumValue value="Orange" />
+     <EnumValue value="White" />
+   </UserPref>
+   <Content type="html"><![CDATA[
+    <div id="test-div"></div>
+    <script type="text/javascript">
+        var prefs = new gadgets.Prefs();
+
+    function displayinstagram() {
+        var instagramid = prefs.getString("instagramid");
+        var instagramtoken = prefs.getString("instagramtoken");
+        var marginvalue = prefs.getString("marginvalue");
+        var enablenavigation = prefs.getString("enablenavigation");
+
+        document.write('<scr' + 'ipt type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></sc' + 'ript><scr' + 'ipt type="text/javascript" src="http://cdn.heybi.com/scripts/owlcarousel.js"></sc' + 'ript><scr' + 'ipt type="text/javascript" src="http://cdn.heybi.com/scripts/instafeed.js"></sc' + 'ript><scr' + 'ipt>
+
+    var userFeed = new Instafeed({
+            limit: "20",
+            resolution: "low_resolution",
+            get: "user",
+            userId: ' + instagramid + ',
+            accessToken: "' + instagramtoken + '",
+            template: "<a target=\x27_blank\x27 href=\x27{{link}}\x27><img src=\x27{{image}}\x27 /></a>",
+            after: function() {
+
+            $(".owl-carousel").owlCarousel({
+                loop: true,
+                margin: ' + marginvalue + ',
+                nav: true,
+                responsive: { 0:{ items: 2, nav: false }, 320:{ items: 2, nav: false }, 480:{ items: 2 }, 640:{ items: 3 }, 840:{ items: 4 }, 1000:{ items: 5 }, 1200:{ items: 6 } } }) } });
+
+        userFeed.run();
+
+    </sc' + 'ript><div id="instagram-outer" class="nav-' + enablenavigation + '"><div class="instagram-inner owl-carousel" id="instafeed"></div></div>');
+    }
+
+    gadgets.util.registerOnLoadHandler(displayinstagram);
+
+</script>
+   ]]>
+  </Content>
+</Module>
